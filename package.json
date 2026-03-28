@@ -1,0 +1,24 @@
+{
+  "name": "playwright-ai-failure-analyzer",
+  "version": "1.0.0",
+  "main": "dist/app/server.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/app/server.ts",
+    "build": "tsc",
+    "start": "node dist/app/server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.0.0",
+    "dotenv": "^16.4.0",
+    "express": "^4.18.2",
+    "uuid": "^9.0.0",
+    "zod": "^3.22.4",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.0.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.0"
+  }
+}
