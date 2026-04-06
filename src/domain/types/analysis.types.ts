@@ -33,6 +33,14 @@ export interface AnalysisOptions {
   maxConcurrentSummaries?: number;
 }
 
+export type SummaryStatus =
+  | 'success'
+  | 'disabled'
+  | 'skipped'
+  | 'no_content'
+  | 'failed_timeout'
+  | 'failed_error';
+
 export interface ParsedFailure {
   title: string;
   file: string;
@@ -55,4 +63,11 @@ export interface FailureCluster {
 
 export interface FailureClusterWithSummary extends FailureCluster {
   summary: string;
+  summaryStatus: SummaryStatus;
+}
+
+export interface ClusterSummaryResult {
+  summary: string;
+  summaryStatus: SummaryStatus;
+  attempts: number;
 }
