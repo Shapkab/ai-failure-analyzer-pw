@@ -4,6 +4,7 @@ import { clusterFailures } from './failure-clustering.service';
 import { summarizeCluster } from '../../infrastructure/llm/openai.provider';
 import type {
   AnalysisOptions,
+  ClusterSummaryResult,
   FailureCluster,
   FailureClusterWithSummary,
   NormalizedFailure,
@@ -56,16 +57,24 @@ export async function runAnalysis(
   const clusters = clusterFailures(normalizedFailures);
 
   if (!options.summarizeWithAi) {
-    return clusters.map(cluster => ({ ...cluster, summary: 'AI summary skipped' }));
+    return clusters.map(cluster => ({
+      ...cluster,
+      summary: 'AI summary skipped',
+      summaryStatus: 'skipped'
+    }));
   }
 
   const concurrency = getSummaryConcurrency(options);
   return mapWithConcurrency<FailureCluster, FailureClusterWithSummary>(
     clusters,
     concurrency,
-    async cluster => ({
-      ...cluster,
-      summary: await summarizeCluster(cluster)
-    })
+    async cluster => {
+      const summaryResult: ClusterSummaryResult = await summarizeCluster(cluster);
+      return {
+        ...cluster,
+        summary: summaryResult.summary,
+        summaryStatus: summaryResult.summaryStatus
+      };
+    }
   );
 }
