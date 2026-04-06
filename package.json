@@ -6,7 +6,7 @@
     "dev": "ts-node-dev --respawn src/app/server.ts",
     "build": "tsc",
     "start": "node dist/app/server.js",
-    "test": "npm run build && node --test dist/tests/*.test.js"
+    "test": "rm -rf dist && npm run build && node --test dist/tests/*.test.js"
   },
   "dependencies": {
     "dotenv": "^16.4.0",

@@ -49,5 +49,6 @@ test('runAnalysis clusters normalized failures and skips AI when disabled', asyn
   assert.equal(clusters[0].failedCount, 2);
   assert.equal(clusters[0].flakyCount, 0);
   assert.equal(clusters[0].summary, 'AI summary skipped');
+  assert.equal(clusters[0].summaryStatus, 'skipped');
   assert.match(clusters[0].signature, /\[num\]/);
 });
